@@ -33,108 +33,94 @@
 				<!-- One -->
 					<section id="one">
 						<header class="major">
-							<strong><h2 style='color:LightSkyBlue'>自我介紹</h2></strong>
-						</header>
-						<h3 style='color:LightSeaGreen'>學習背景</h3>
-						<p>我叫黃照恩，今年20歲 就讀於靜宜大學 是一名正在讀資科系2年級的學生。我修過多門專業課程，包括：微積分、線性代數、機率論 Python、R 語言等等。</p>
-						<h3 style='color:LightSeaGreen'>工作經驗</h3>
-						<p>我曾經在家人的小吃店幫忙過，也在暑假的時候去必勝客打工過。在那段時間讓我學會了團隊的重要性，以及如何與人溝通。
-						<h3 style='color:LightSeaGreen'>技能</h3>
-							<ul>
-										<li>會使用的程式語言：Python、R軟體/li>
-										<li>會用的工具：Github、chatgpt、codePen</li>
-										
-									</ul>
-						
-					</section>
+                <h2>自我介紹</h2>
+            </header>
+            <h3>學習背景</h3>
+            <p>我叫黃照恩，今年20歲，就讀於靜宜大學資科系二年級。我修過多門專業課程，包括：微積分、線性代數、機率論、Python、R 語言等。</p>
+            <h3>工作經驗</h3>
+            <p>曾於家人的小吃店幫忙，也在暑假於必勝客打工。學到了團隊合作與人際溝通的技巧。</p>
+            <h3>技能</h3>
+            <ul>
+                <li>程式語言：Python、R</li>
+                <li>工具：GitHub、ChatGPT、CodePen</li>
+            </ul>
+        </section>
 
-				<!-- Two -->
-					<section id="two">
-						<h2>興趣</h2>
-						<div class="row">
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/01.jpg" class="image fit thumb"><img src="images/thumbs/01.jpg" alt="" /></a>
-								<h3>籃球 排球</h3>
-								<p>平常有空時會去打球，當作平時的休閒娛樂。</p>
-							</article>
-							<article class="col-6 col-12-xsmall work-item">
-								<a href="images/fulls/02.jpg" class="image fit thumb"><img src="images/thumbs/02.jpg" alt="" /></a>
-								<h3>旅行</h3>
-								<p>旅行可以讓我遠離日常上課和壓力，也可以讓我心理放鬆。</p>
-							</article>
-							</div>
-					</section>
-					<section id="three">
-						<h3>爬蟲成果展示</h3>
-							<div class="row">
-								<p>爬蟲的網站:台中市政府資料開放網站</p><br />
-								<h3>爬的內容:科技執法</h3><br />
-								<p>安裝 Selenium 套件 </p><br />
-								<p>pip install selenium webdriver_manager </p><br />
-                                               <p>匯入所需模組</p><br />
-     <span class="image main"><img src="https://drive.google.com/file/d/1jPWHMwGfFAFdOICiVkQDwCacXrmtxmCm/view?usp=drive_link"  /></span>
+        <section id="two">
+            <h2>興趣</h2>
+            <div class="row">
+                <article class="col-6 work-item">
+                    <img src="images/thumbs/01.jpg" alt="籃球 排球" class="image fit" />
+                    <h3>籃球 排球</h3>
+                    <p>空閒時喜歡打球，當作休閒娛樂。</p>
+                </article>
+                <article class="col-6 work-item">
+                    <img src="images/thumbs/02.jpg" alt="旅行" class="image fit" />
+                    <h3>旅行</h3>
+                    <p>旅行能放鬆心情，遠離課業壓力。</p>
+                </article>
+            </div>
+        </section>
 
-<p>from selenium import webdriver <br />
-from selenium.webdriver.chrome.service import Service <br />
-from selenium.webdriver.common.by import By  <br />
-from selenium.webdriver.common.keys import Keys  <br />
-import time <br /> 
-from webdriver_manager.chrome import ChromeDriverManager<br />  
-from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException </p><br />
+        <section id="three">
+            <h2>爬蟲成果展示</h2>
+            <p><strong>網站：</strong>台中市政府資料開放網站</p>
+            <p><strong>關鍵字：</strong>科技執法</p>
+            <p><strong>使用套件安裝指令：</strong></p>
+            <pre>pip install selenium webdriver_manager</pre>
+            <p><strong>匯入模組：</strong></p>
+            <pre>from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException</pre>
+            <p><strong>爬蟲邏輯簡述：</strong></p>
+            <pre>def extract_page_data():
+    time.sleep(1)
+    items = driver.find_elements(By.CSS_SELECTOR, ".general-list-item-title")
+    for item in items:
+        title_element = item.find_element(By.CSS_SELECTOR, "a")
+        title = title_element.text
+        link = title_element.get_attribute("href")
+        data_list.append({"標題": title, "連結": link})
+        print(title, link)</pre>
+            <pre># 啟動瀏覽器與搜尋
+options = webdriver.ChromeOptions()
+options.add_argument("--disable-blink-features=AutomationControlled")
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+driver.get("https://opendata.taichung.gov.tw/")
+driver.maximize_window()
+search_box = driver.find_element(By.CSS_SELECTOR, "input.bpa-input")
+search_box.send_keys("科技執法")
+time.sleep(2)
+search_box.send_keys(Keys.ENTER)</pre>
+            <pre># 多頁資料抓取與儲存
+count = 0
+data_list = []
+while count < 3:
+    time.sleep(2)
+    extract_page_data()
+    try:
+        next_button = driver.find_element(By.CSS_SELECTOR,'button[aria-label = "Next page"]')
+        if next_button.is_enabled():
+            next_button.click()
+        else:
+            break
+    except (NoSuchElementException, ElementNotInteractableException):
+        break
+    count += 1
+driver.quit()</pre>
+            <pre># 輸出 CSV
+import pandas as pd
+df = pd.DataFrame(data_list)
+df.to_csv(r"C:\\Users\\ASUS\\Desktop\\新增資料夾\\台中科技執法.csv", index=False, encoding="utf-8-sig")</pre>
+        </section>
+    </div>
+</body>
+</html>
 
-<p>抓取目前頁面上的資料</p>
-<p>def extract_page_data():<br />
-    time.sleep(1)  # 暫停 1 秒，等待頁面載入<br />
-    items = driver.find_elements(By.CSS_SELECTOR, ".general-list-item-title")  # 找出所有標題區塊<br />
-    for item in items:<br />
-        title_element = item.find_element(By.CSS_SELECTOR, "a")  # 在每個標題區塊中找出連結 <br />
-        title = title_element.text  # 取得連結的文字（標題）<br />
-        link = title_element.get_attribute("href")  # 取得連結的網址<br />
-        data_list.append({"標題": title, "連結": link})  # 將標題與連結加到列表中<br />
-        print(title, link)  # 印出標題與連結</p>	<br />							
-
-<p> 啟動 Chrome 瀏覽器</p>
-<p>options = webdriver.ChromeOptions()  # 設定啟動參數<br />
-options.add_argument("--disable-blink-features=AutomationControlled")  # 避免被網站偵測為機器人<br />
-
-driver = webdriver.Chrome(<br />
-    service=webdriver.chrome.service.Service(ChromeDriverManager().install()),<br />
-    options=options)<br />
-</p>
-
-
-<p>開啟網站並執行搜尋</p> 
-<p>driver.get("https://opendata.taichung.gov.tw/")  # 開啟台中市政府開放資料網站<br />
-driver.maximize_window()  # 最大化瀏覽器視窗<br />
-
-search_box = driver.find_element(By.CSS_SELECTOR, "input.bpa-input")  # 找到搜尋欄位<br />
-search_box.send_keys("科技執法")  # 輸入關鍵字<br />
-time.sleep(2)  # 等待頁面反應<br />
-search_box.send_keys(Keys.ENTER)  # 模擬按下 Enter 鍵進行搜尋<br />
-
-data_list = []  # 用來儲存每筆抓到的資料（標題與連結）<br />
-
-count = 0<br />
-while count < 3:  # 最多抓取 3 頁資料<br />
-    time.sleep(2)  # 等待網頁資料載入<br />
-    extract_page_data()  # 執行抓資料的函式<br />
-    try:<br />
-        next_button = driver.find_element(By.CSS_SELECTOR,'button[aria-label = "Next page"]')  # 找到「下一頁」按鈕<br />
-        if next_button.is_enabled():  # 如果按鈕可以點<br />
-            next_button.click()  # 點擊進入下一頁<br />
-        else:<br />
-            break  # 如果不能點（例如已經最後一頁），就跳出迴圈<br />
-    except (NoSuchElementException, ElementNotInteractableException):<br />
-        break  # 若找不到按鈕或無法互動，也結束<br />
-    count += 1  # 記錄目前是第幾頁<br />
-driver.quit()  # 關閉並退出瀏覽器</p><br />
-
-
-<p>匯出成 CSV</p>
-
-<p>import pandas as pd  # 匯入 pandas 用來處理表格資料<br />
-df = pd.DataFrame(data_list)  # 將抓到的資料轉成 pandas 的資料表<br />
-df.to_csv(r"C:\Users\ASUS\Desktop\新增資料夾\台中科技執法.csv", index=False, encoding="utf-8-sig")</p><br />
 							
 								
 							
