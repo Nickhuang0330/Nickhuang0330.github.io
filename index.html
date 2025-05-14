@@ -87,7 +87,7 @@ from selenium.common.exceptions import NoSuchElementException, ElementNotInterac
     time.sleep(1)  # 暫停 1 秒，等待頁面載入<br />
     items = driver.find_elements(By.CSS_SELECTOR, ".general-list-item-title")  # 找出所有標題區塊<br />
     for item in items:<br />
-        title_element = item.find_element(By.CSS_SELECTOR, "a")  # 在每個標題區塊中找出連結 <a><br />
+        title_element = item.find_element(By.CSS_SELECTOR, "a")  # 在每個標題區塊中找出連結 <br />
         title = title_element.text  # 取得連結的文字（標題）<br />
         link = title_element.get_attribute("href")  # 取得連結的網址<br />
         data_list.append({"標題": title, "連結": link})  # 將標題與連結加到列表中<br />
