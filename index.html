@@ -69,14 +69,78 @@
 							<div class="row">
 								<p>爬蟲的網站:台中市政府資料開放網站</p><br />
 								<h3>爬的內容:科技執法</h3>
-								<p>下載套件，並設定 Selenium 並準備使用</p>
-								<p>from selenium import webdriver<br />
-from selenium.webdriver.chrome.service import Service<br />
-from selenium.webdriver.common.by import By<br />
-from selenium.webdriver.common.keys import Keys<br />
-import time<br />
-from webdriver_manager.chrome import ChromeDriverManager<br />
-from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException</p>
+								<p>安裝 Selenium 套件 </p>
+								<p>pip install selenium webdriver_manager </p>
+                                               <p>匯入所需模組</p>
+     
+
+<p>from selenium import webdriver <br />
+from selenium.webdriver.chrome.service import Service <br />
+from selenium.webdriver.common.by import By  <br />
+from selenium.webdriver.common.keys import Keys  <br />
+import time <br /> 
+from webdriver_manager.chrome import ChromeDriverManager<br />  
+from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException </p>
+
+<p>抓取目前頁面上的資料</p>
+<p>def extract_page_data():
+    time.sleep(1)  # 暫停 1 秒，等待頁面載入
+    items = driver.find_elements(By.CSS_SELECTOR, ".general-list-item-title")  # 找出所有標題區塊
+    for item in items:
+        title_element = item.find_element(By.CSS_SELECTOR, "a")  # 在每個標題區塊中找出連結 <a>
+        title = title_element.text  # 取得連結的文字（標題）
+        link = title_element.get_attribute("href")  # 取得連結的網址
+        data_list.append({"標題": title, "連結": link})  # 將標題與連結加到列表中
+        print(title, link)  # 印出標題與連結</p>								
+
+<p> 啟動 Chrome 瀏覽器</p>
+<p>options = webdriver.ChromeOptions()  # 設定啟動參數
+options.add_argument("--disable-blink-features=AutomationControlled")  # 避免被網站偵測為機器人
+
+driver = webdriver.Chrome(
+    service=webdriver.chrome.service.Service(ChromeDriverManager().install()),
+    options=options
+)</p>
+
+
+<p>開啟網站並執行搜尋</p> 
+<p>driver.get("https://opendata.taichung.gov.tw/")  # 開啟台中市政府開放資料網站
+driver.maximize_window()  # 最大化瀏覽器視窗
+
+search_box = driver.find_element(By.CSS_SELECTOR, "input.bpa-input")  # 找到搜尋欄位
+search_box.send_keys("科技執法")  # 輸入關鍵字
+time.sleep(2)  # 等待頁面反應
+search_box.send_keys(Keys.ENTER)  # 模擬按下 Enter 鍵進行搜尋
+📥 初始化資料儲存清單
+python
+複製
+編輯
+data_list = []  # 用來儲存每筆抓到的資料（標題與連結）
+🔁 抓取多頁資料
+python
+複製
+編輯
+count = 0
+while count < 3:  # 最多抓取 3 頁資料
+    time.sleep(2)  # 等待網頁資料載入
+    extract_page_data()  # 執行抓資料的函式
+    try:
+        next_button = driver.find_element(By.CSS_SELECTOR,'button[aria-label = "Next page"]')  # 找到「下一頁」按鈕
+        if next_button.is_enabled():  # 如果按鈕可以點
+            next_button.click()  # 點擊進入下一頁
+        else:
+            break  # 如果不能點（例如已經最後一頁），就跳出迴圈
+    except (NoSuchElementException, ElementNotInteractableException):
+        break  # 若找不到按鈕或無法互動，也結束
+    count += 1  # 記錄目前是第幾頁
+driver.quit()  # 關閉並退出瀏覽器</p>
+
+
+<p>匯出成 CSV</p>
+
+<p>import pandas as pd  # 匯入 pandas 用來處理表格資料
+df = pd.DataFrame(data_list)  # 將抓到的資料轉成 pandas 的資料表
+df.to_csv(r"C:\Users\ASUS\Desktop\新增資料夾\台中科技執法.csv", index=False, encoding="utf-8-sig")</p>
 							
 								
 							
