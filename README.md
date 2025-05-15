@@ -12,7 +12,7 @@
 * github
 * spyter
 ## 圖示（要爬蟲的資料與網站連結）
-[科技執法查詢](https://opendata.taichung.gov.tw/)
+[科技執法查詢](https://opendata.taichung.gov.tw/search?q=%E7%A7%91%E6%8A%80%E5%9F%B7%E6%B3%95)
 ## 作者與聯絡方式 
 資科2A 黃照恩 nickhuang3257@gmail.com
 	
